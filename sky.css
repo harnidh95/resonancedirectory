@@ -1,0 +1,111 @@
+/* A hazy distant sky, focused overlapping cloud banks, and readable words. */
+:root {
+  --cloud-grade:saturate(1.12) contrast(1.04);
+  --sky-glow:#fff1f7;
+  --sky-veil:#ffe4f0;
+}
+body[data-sky=stuck] { --cloud-grade:saturate(.92);--sky-glow:#f8d6ca;--sky-veil:#f9e4db; }
+body[data-sky=needs] { --cloud-grade:saturate(1.08);--sky-glow:#fffbea;--sky-veil:#fff0bf; }
+.ambient-sky { position:fixed;inset:0;overflow:hidden;z-index:-1;pointer-events:none; }
+.sky-light {
+  position:absolute;inset:0;z-index:1;
+  background:linear-gradient(color-mix(in srgb,var(--sky-veil) 25%,transparent),transparent 70%);
+}
+.sky-cloudscape {
+  position:absolute;inset:-5%;filter:blur(7px) saturate(.85);
+  animation:cloudscape-drift 95s ease-in-out infinite alternate;
+}
+.sky-scene { position:absolute;inset:0;background-position:center;background-size:cover;background-repeat:no-repeat;opacity:0;transition:opacity 1.6s ease; }
+.sky-scene-feelings { background-image:url('assets/sky-feelings.png'); }
+.sky-scene-stuck { background-image:url('assets/sky-sunset.png'); }
+.sky-scene-needs { background-image:url('assets/sky-needs.png'); }
+body[data-sky=feelings] .sky-scene-feelings,body[data-sky=stuck] .sky-scene-stuck,body[data-sky=needs] .sky-scene-needs { opacity:.48; }
+.ambient-cloud { position:absolute;z-index:2;opacity:.12;filter:blur(8px);animation:sky-wander 74s ease-in-out infinite alternate; }
+.ambient-cloud:nth-of-type(1) { left:-300px;top:240px;width:950px;height:270px;transform:rotate(-16deg); }
+.ambient-cloud:nth-of-type(2) { right:-240px;bottom:-80px;width:780px;height:420px;transform:rotate(22deg);animation-delay:-37s;animation-duration:96s; }
+body[data-sky=stuck] .ambient-cloud { opacity:.1; }
+.cloud-texture { display:block;width:100%;height:100%;object-fit:fill;filter:var(--cloud-grade);user-select:none;pointer-events:none; }
+.cloud-lavender-billows { filter:hue-rotate(42deg) saturate(1.15); }
+.cloud-variant-1 { transform:scaleX(-1) rotate(4deg); }
+.cloud-variant-2 { transform:scale(1.08,.95) rotate(-6deg); }
+.cloud-variant-3 { transform:scale(-1.04,1.08) rotate(-3deg); }
+.word-cloud {
+  position:relative;
+  min-height:460px;
+  padding:48px 12px 52px;
+  gap:14px 12px;
+}
+.cloud-field {
+  position:absolute;inset:0;
+  display:grid;grid-template-rows:repeat(var(--cloud-sections),minmax(0,1fr));
+  z-index:0;pointer-events:none;
+  -webkit-mask-image:linear-gradient(transparent,#000 9%,#000 90%,transparent),linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  mask-image:linear-gradient(transparent,#000 9%,#000 90%,transparent),linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+  -webkit-mask-composite:source-in;mask-composite:intersect;
+}
+.cloud-bank-section { position:relative;min-height:0; }
+.cloud-bank-reversed { transform:scaleX(-1); }
+.cloud-wisp {
+  position:absolute;
+  left:var(--wisp-x);top:var(--wisp-y);
+  width:var(--wisp-width);aspect-ratio:var(--wisp-aspect);
+  opacity:var(--wisp-opacity);
+  animation:wisp-drift var(--wisp-duration) ease-in-out var(--wisp-delay) infinite alternate;
+}
+.cloud-wisp-infill { translate:-50% -50%; }
+.wisp-body {
+  display:block;width:100%;height:100%;
+  filter:blur(var(--wisp-blur));
+  transition:transform 1.8s cubic-bezier(.18,.6,.24,1),opacity 1.6s ease,filter 1.8s ease;
+}
+.cloud-wisp.is-parted .wisp-body {
+  transform:translate(var(--part-x),var(--part-y)) scale(1.08);
+  opacity:.52;
+  filter:blur(calc(var(--wisp-blur) + 2px));
+}
+.word,.word:nth-child(4n),.word.long-word {
+  min-width:var(--word-space,145px);min-height:82px;max-width:290px;
+  padding:0 18px;margin-top:0;
+  color:var(--cloud-ink);font-weight:500;z-index:1;
+}
+.word:nth-child(6n+2) { margin-top:0; }
+.word-drift { animation:none;transform:translateY(var(--word-offset,0)); }
+.word-label { text-shadow:0 1px 8px #fff9f3d9,0 0 3px #fff9f3b3; }
+.word.is-chased .word-label { color:var(--accent); }
+.word[aria-pressed=true] .word-label { color:#fff5ef;text-shadow:none;box-shadow:0 2px 15px color-mix(in srgb,var(--selected) 15%,transparent); }
+.word-check { right:-3px;top:6px; }
+.empty-cloud { position:relative;z-index:1; }
+.header { border-bottom-color:color-mix(in srgb,var(--line) 60%,transparent); }
+.intro>p,.intro-note,.cloud-heading p,.cloud-bottom,.next-row,.cloud-invitation,.privacy-note,.footer,.header nav { text-shadow:0 0 14px var(--sky-veil),0 0 6px var(--sky-veil); }
+.step { box-shadow:0 4px 20px #15213d0a; }
+.step.active { box-shadow:0 3px 0 color-mix(in srgb,var(--ink) 75%,transparent),0 6px 24px #15213d12; }
+.search,.moment-bar { background:color-mix(in srgb,var(--surface) 88%,transparent);backdrop-filter:blur(12px); }
+@keyframes cloudscape-drift {
+  from { transform:scale(1.02) translate(-1%,0); }
+  to { transform:scale(1.08) translate(1.5%,-1.5%); }
+}
+@keyframes wisp-drift {
+  from { transform:translate(calc(var(--drift-x)*-.6),calc(var(--drift-y)*-1)) rotate(var(--wisp-angle)) scale(.98); }
+  to { transform:translate(var(--drift-x),var(--drift-y)) rotate(calc(var(--wisp-angle) + 2deg)) scale(1.025); }
+}
+body[data-motion=paused] .sky-cloudscape,body[data-motion=paused] .cloud-wisp { animation-play-state:paused; }
+@media(min-width:1500px) { .word-cloud { gap:14px 18px; } }
+@media(max-width:1000px) { .word-cloud { gap:8px 6px; } }
+@media(max-width:700px) {
+  .sky-cloudscape { inset:-3%; }
+  .sky-scene { background-position:53% center; }
+  .ambient-cloud:nth-of-type(1) { width:650px;height:180px;left:-360px;top:350px;opacity:.12; }
+  .ambient-cloud:nth-of-type(2) { width:500px;height:290px;right:-300px;bottom:-60px;opacity:.12; }
+  .word-cloud { min-height:390px;margin:10px -5px 8px;padding:38px 4px 45px;gap:12px 4px; }
+  .word,.word:nth-child(4n),.word.long-word { min-width:calc(var(--word-space,145px)*.8);min-height:69px;padding:0 11px;max-width:calc(100% - 20px); }
+  .word:nth-child(6n+2) { margin-top:0; }
+  .cloud-wisp { width:var(--mobile-width);left:var(--mobile-x);top:var(--mobile-y);aspect-ratio:var(--mobile-aspect); }
+  .word-check { right:-2px;top:3px; }
+}
+@media(max-width:370px) {
+  .word,.word:nth-child(4n),.word.long-word { min-width:calc(var(--word-space,145px)*.74);padding:0 9px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .sky-cloudscape,.cloud-wisp { animation:none; }
+  .cloud-wisp.is-parted .wisp-body { transform:none;opacity:1;filter:blur(var(--wisp-blur)); }
+}

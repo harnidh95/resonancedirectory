@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#ffc0df">
+  <meta name="description" content="A little space to check in. Choose how you feel, what you're stuck with, and what you need. Discover something to read, watch, or listen to that meets you there.">
+  <title>Resonance — Something for this moment</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="preload" as="image" href="assets/sky-feelings.png"><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="sky.css">
+</head>
+<body data-sky="feelings">
+  <div class="ambient-sky" aria-hidden="true"><div class="sky-cloudscape"><div class="sky-scene sky-scene-feelings"></div><div class="sky-scene sky-scene-stuck"></div><div class="sky-scene sky-scene-needs"></div></div><div class="sky-light"></div><span class="ambient-cloud"></span><span class="ambient-cloud"></span></div>
+  <a class="skip-link" href="#main">Skip to your check-in</a>
+  <header class="header wrap">
+    <a class="brand" href="./" aria-label="Resonance home"><svg class="brand-mark" viewBox="0 0 40 40" fill="none" aria-hidden="true"><g stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 3v10m0 14v10M3 20h10m14 0h10M8 8l7 7m10 10 7 7M8 32l7-7m10-10 7-7"/></g><circle cx="20" cy="20" r="4" fill="currentColor"/></svg>resonance<span class="brand-dot">.</span></a>
+    <nav aria-label="Main navigation"><button class="motion-toggle" id="motion-toggle" aria-pressed="false" aria-label="Pause cloud animation"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6v12M16 6v12"/></svg><span>Motion on</span></button><button class="text-button" id="how-button">How it works</button><button class="shelf-button" id="shelf-button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h12v17l-6-4-6 4z"/></svg>Your shelf <span id="shelf-count">0</span></button></nav>
+    <a class="coffee-link header-coffee" href="https://buymeacoffee.com/harnidh" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h12v7a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5V8ZM17 9h2a3 3 0 0 1 0 6h-2M8 3v2m4-2v2M3 21h16"/></svg><span>Buy me a coffee</span><span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
+  </header>
+  <main id="main" class="wrap">
+    <section class="intro" aria-labelledby="intro-title">
+      <div class="eyebrow"><span></span> A LITTLE COLOUR FOR YOUR INNER WEATHER</div>
+      <h1 id="intro-title">Find something that<br>meets you <em>here.</em></h1>
+      <p>A song. A story. A different way of seeing things.<br>Start with where you are. We’ll help you find what resonates.</p>
+      <div class="intro-note"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v16M4 12h16M6.5 6.5l11 11m0-11-11 11"/></svg>A little feeling. A little finding. A little you.</div>
+    </section>
+    <section class="checkin" aria-label="Your check-in">
+      <div class="step-nav" role="tablist" aria-label="Check-in word clouds">
+        <button class="step active" id="tab-feelings" role="tab" aria-selected="true" aria-controls="cloud-panel" data-step="feelings"><span class="step-number">01</span><span class="step-label"><strong>Feelings</strong><small>How do you feel?</small></span><span class="step-count" hidden>0</span></button>
+        <button class="step" id="tab-stuck" role="tab" aria-selected="false" aria-controls="cloud-panel" tabindex="-1" data-step="stuck"><span class="step-number">02</span><span class="step-label"><strong>Feeling stuck</strong><small>What’s holding you?</small></span><span class="step-count" hidden>0</span></button>
+        <button class="step" id="tab-needs" role="tab" aria-selected="false" aria-controls="cloud-panel" tabindex="-1" data-step="needs"><span class="step-number">03</span><span class="step-label"><strong>Your needs</strong><small>What would help?</small></span><span class="step-count" hidden>0</span></button>
+      </div>
+      <div id="cloud-panel" role="tabpanel" aria-labelledby="tab-feelings">
+        <div class="cloud-heading"><div><span class="sky-eyebrow">YOUR INNER WEATHER</span><h2 id="cloud-title">How are you feeling, really?</h2><p id="cloud-subtitle">You can be more than one thing. Pick every word that feels like you.</p></div><label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></svg><input id="word-search" type="search" placeholder="Find a feeling" aria-label="Search feelings" autocomplete="off"></label></div>
+        <div class="cloud-invitation"><span>Chase a cloud. Catch a feeling.</span><span>Hover to play · click to choose</span></div><div id="word-cloud" class="word-cloud" role="group" aria-label="Select your feelings"></div>
+        <div class="cloud-bottom"><span id="cloud-counter"></span><button id="show-all" class="text-button small">Explore all words <span aria-hidden="true">↗</span></button><span class="pick-hint"><span class="tiny-circle"></span> Choose as many as you like</span></div>
+        <div class="selection-area" id="selection-area" hidden><span class="eyebrow">YOUR WORDS</span><div id="selected-words"></div><button class="text-button small" id="clear-all">Clear all</button></div>
+        <div class="next-row"><button class="text-button" id="back-step" hidden>← Back</button><span id="step-note">Start anywhere. You can skip a step.</span><button class="next-button" id="next-step">Next: what feels stuck <span aria-hidden="true">→</span></button></div>
+      </div>
+    </section>
+    <section class="moment-bar" aria-label="Find recommendations"><div><span class="little-star" aria-hidden="true">✳</span><div><h3 id="moment-title">A little check-in. A new possibility.</h3><p id="moment-copy">Choose a few words, and see where they take you.</p></div></div><button class="primary-button" id="find-media" disabled>Find my resonance <span aria-hidden="true">↗</span></button></section>
+    <div class="privacy-note"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 9h10v8H5zM7 9V6a3 3 0 0 1 6 0v3"/></svg>Your check-in stays in this tab. A space to be yourself.</div>
+    <section id="results" class="results" hidden aria-labelledby="results-title"><div class="results-heading"><div><div class="eyebrow">A FEW THINGS THAT MIGHT RESONATE</div><h2 id="results-title" tabindex="-1">Something for this moment.</h2><p id="results-subtitle">Something to read, watch, or get lost in. A little art for each discovery.</p></div><button id="another-mix" class="outline-button">Try another mix <span aria-hidden="true">↻</span></button></div>
+      <div class="result-filters"><div id="kind-filters" aria-label="Filter media type" role="group"></div><label class="time-filter">Time you have <select id="time-filter"><option value="any">Any amount</option><option value="5">5 minutes</option><option value="15">15 minutes</option><option value="30">30 minutes</option></select></label></div>
+      <div id="recommendations" class="recommendations"></div><p class="library-note" id="library-note"></p>
+    </section>
+    <section class="closing-note"><span aria-hidden="true">↟</span><p>You don’t have to figure everything out.<br><em>Sometimes, you just need something that gets you.</em></p></section>
+  </main>
+  <footer class="footer wrap">
+    <span class="footer-brand">resonance.</span><span>All kinds of weather welcome here.</span>
+    <div class="footer-actions">
+      <button class="text-button small" id="about-library">About the library <span aria-hidden="true">↗</span></button>
+      <a class="coffee-link" href="https://buymeacoffee.com/harnidh" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h12v7a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5V8ZM17 9h2a3 3 0 0 1 0 6h-2M8 3v2m4-2v2M3 21h16"/></svg><span>Buy me a coffee</span><span aria-hidden="true">↗</span><span class="sr-only"> (opens in a new tab)</span></a>
+    </div>
+  </footer>
+  <dialog id="info-dialog" aria-labelledby="info-title"><button class="dialog-close" data-close aria-label="Close">×</button><div class="eyebrow">A LITTLE ABOUT RESONANCE</div><h2 id="info-title">Start with you.</h2><ol class="how-list"><li><span>01</span><div><h3>Name what’s here.</h3><p>Explore 131 feelings, 112 stuck points, and 112 needs. Select as many as you like, or skip any cloud.</p></div></li><li><span>02</span><div><h3>Find something that fits.</h3><p>Your words are matched to themes in a curated media library. What you need carries the most weight. Picks may offer comfort, a new perspective, or room to feel.</p></div></li><li><span>03</span><div><h3>Follow your curiosity.</h3><p>Open a piece at its original source, try a different mix, or save it to your shelf. You decide what resonates.</p></div></li></ol><div class="dialog-note"><strong id="library-size">A growing library.</strong><div id="library-stats" class="library-stats" aria-label="Media library counts"></div><p>Explore real pieces from publishers, creators, and official catalogs. Recommendations use this library; they don’t search the web live. Titles and attribution come from source pages and feeds; mood tags are suggestions. Duration is approximate; book links and possible subscriptions are labeled. An emotional fit is a suggestion, never a promise.</p><p>Your word choices stay in memory in this tab. Only saved media IDs are stored in this browser. Opening a media link takes you to an external site.</p></div></dialog>
+  <dialog id="shelf-dialog" class="shelf-dialog" aria-labelledby="shelf-title"><button class="dialog-close" data-close aria-label="Close">×</button><div class="eyebrow">COME BACK WHEN YOU NEED</div><h2 id="shelf-title">Your little shelf.</h2><p class="muted">Saved on this browser, for another moment.</p><div id="shelf-items"></div></dialog>
+  <div id="announcement" class="sr-only" role="status" aria-live="polite"></div><div id="toast" class="toast" role="status" hidden></div>
+  <noscript><p class="noscript">Please enable JavaScript to select words and discover media.</p></noscript>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
